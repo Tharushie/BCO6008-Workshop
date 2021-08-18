@@ -35,6 +35,41 @@ predict(lm_fit, new_data = Boston)
 final_model<-augment(lm_fit, new_data = Boston) %>%
   select(medv, .pred)
 
+rm(list=ls())
 
 
+##Repeating Steps - 
 
+data(Boston)
+
+
+#1 -
+model_spec<-linear_reg() %>%
+  set_mode("regression")%>%
+  set_engine("lm")
+
+#2 -
+model_fit<-model_spec %>% fit(data=Boston, medv~age+crim+rm)
+
+#3 - 
+
+model_predicted<-predict(model_fit, new_data = Boston)
+
+model__predicted_augment<-augment(model_fit, new_data = Boston)
+
+rm(list=ls())
+
+data(Boston)
+
+##Repeating Steps - (Using all variables in step no 2)
+
+#1 - 
+model_lm_spec<-linear_reg() %>%
+  set_mode("regression")%>%
+  set_engine("lm")
+
+#2-
+model_lm_fit<-model_lm_spec%>%fit(data=Boston, medv~.)
+
+#3-
+model_lm_augment<-augment(model_lm_fit, new_data = Boston)
